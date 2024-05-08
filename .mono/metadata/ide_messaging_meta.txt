@@ -1,2 +1,0 @@
-﻿50524
-C:/Users/User/Documents/tools/godot/Godot_v3.5.3-stable_mono_win64.exe
