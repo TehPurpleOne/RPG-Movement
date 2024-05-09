@@ -1,0 +1,10 @@
+D:\Godot\RPG-Movement\.mono\temp\bin\Debug\RPG Tile Movement.dll
+D:\Godot\RPG-Movement\.mono\temp\bin\Debug\RPG Tile Movement.pdb
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.csproj.AssemblyReference.cache
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.GeneratedMSBuildEditorConfig.editorconfig
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.AssemblyInfoInputs.cache
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.AssemblyInfo.cs
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.csproj.CoreCompileInputs.cache
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.sourcelink.json
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.dll
+D:\Godot\RPG-Movement\.mono\temp\obj\Debug\RPG Tile Movement.pdb

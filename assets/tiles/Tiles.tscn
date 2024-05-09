@@ -146,3 +146,21 @@ texture = ExtResource( 1 )
 hframes = 11
 vframes = 3
 frame = 23
+
+[node name="Water 12" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 11
+vframes = 3
+frame = 24
+
+[node name="Water 13" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 11
+vframes = 3
+frame = 25
+
+[node name="Water 14" type="Sprite" parent="."]
+texture = ExtResource( 1 )
+hframes = 11
+vframes = 3
+frame = 26
