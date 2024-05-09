@@ -93,7 +93,7 @@ public class World : Node2D
         if(!debugMode && debugLayer.Visible) debugLayer.Hide();
         if(debugMode && !debugLayer.Visible) debugLayer.Show();
 
-        if(debugMode) {
+        if(debugMode) { // This window will display various information about the PC sprites, the tiles they overlap, along with how many steps until the next battle.
             string debugInfo = "";
 
             for(int i = 0; i < party.Count; i++) {
