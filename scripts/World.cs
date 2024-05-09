@@ -10,7 +10,7 @@ public class World : Node2D
     private CanvasLayer debugLayer;
     private Label debugLabel;
 
-    private enum states {NULL, INIT, IDLE, CHECKTILE, MOVE, DAMAGE, BATTLE, NEXTMAP}; // States for the world map.
+    private enum states {NULL, INIT, IDLE, CHECKTILE, MOVE, EVENTCHECK, BATTLE}; // States for the world map.
     private states state; // Current state.
     private states previousState; // Previous state.
 
@@ -125,7 +125,7 @@ public class World : Node2D
                 if(delayMovement == 0) {
                     PlaySound("Victory");
                     UpdateConsole("Thou hast vanquished the enemy!");
-                    SetState(states.NEXTMAP);
+                    SetState(states.IDLE);
                 }
                 break;
         }
@@ -216,78 +216,62 @@ public class World : Node2D
                     mover.Start();
                 }
                 break;
-            
-            case states.DAMAGE:
-                // Check each party member to make sure they are not standing on a swamp tile.
-                bool ouchies = false;
 
-                for(int i = 0; i < party.Count; i++) {
-                    Vector2 tPos = map.WorldToMap(party[i].GlobalPosition);
-                    int tID = map.GetCellv(tPos);
+                case states.EVENTCHECK:
+                    // Check the current tile for a town, castle, swamp, or dungeon. Then see if a random battle is triggered.
 
-                    if(tID == 8) {
-                        ouchies = true;
+                    for(int i = 0; i < party.Count; i++) {
+                        Vector2 tPos = map.WorldToMap(party[i].GlobalPosition);
+                        int tID = map.GetCellv(tPos);
+
+                        switch(tID) { // Check the current tile the party leader, or all of the party are on.
+                            case 0:
+                            case 1:
+                            case 6:
+                            case 10:
+                                if(i == 0) { // Only the party leader needs to be checked. Use this event to transfer the party to a new map.
+                                    string tileName = (string)map.TileSet.TileGetName(tID);
+                                    UpdateConsole("Thou hast discovered a " + tileName + "!");
+                                    PlaySound("Enter");
+                                }
+                                break;
+                            
+                            case 4:
+                                if(i == 0) { // Party leader had landed on a hill. Delay movement.
+                                    delayMovement = 10;
+                                }
+                                break;
+                            
+                            case 8: // Uh oh. The party landed on a swamp tile. Deal damage to all members touching the tiles.
+                                swampFlashDelay = 10;
+                                delayMovement = 10;
+                                backColor.Color = Color.Color8(228, 0, 96, 255);
+                                UpdateConsole("Ouch!");
+                                PlaySound("Swamp");
+                                break;
+                        }
                     }
-                }
 
-                if(ouchies) {
-                    PlaySound("Swamp");
-                    swampFlashDelay = 10;
-                    delayMovement = 10;
-                    backColor.Color = Color.Color8(228, 0, 96, 255);
-                    UpdateConsole("Ouch!");
-                }
-                SetState(states.BATTLE);
-                break;
-            
+                    randomBattle--;
+
+                    switch(randomBattle) {
+                        case 0:
+                            SetState(states.BATTLE);
+                            break;
+                        
+                        case int v when randomBattle > 0:
+                            SetState(states.IDLE);
+                            break;
+                    }
+                    break;
+                
             case states.BATTLE:
-                // See if a random battle triggers! If not, continue on!
-                switch(randomBattle) {
-                    case 0:
-                        PlaySound("Enemy");
-                        UpdateConsole("An enemy approaches!");
-                        randomBattle = SetRNG();
-                        delayMovement = 120;
-                        break;
-                    
-                    case int v when randomBattle > 0:
-                        randomBattle--;
-                        SetState(states.NEXTMAP);
-                        break;
-                }
+                PlaySound("Enemy");
+                UpdateConsole("An enemy approaches!");
+                randomBattle = SetRNG();
+                delayMovement = 120;
                 break;
             
-            case states.NEXTMAP:
-                // See if the tile is a hill, town or dungeon.
-                Vector2 tPosB = map.WorldToMap(party[0].GlobalPosition);
-                int tIDB = map.GetCellv(tPosB);
-                bool sound = false;
-
-                switch(tIDB) {
-                    case 0:
-                        UpdateConsole("Thou hast discovered a castle!");
-                        sound = true;
-                        break;
-                    
-                    case 1:
-                        UpdateConsole("Thou hast discovered a town!");
-                        sound = true;
-                        break;
-                    
-                    case 4:
-                        delayMovement = 10;
-                        break; 
-                    
-                    case 6:
-                    case 10:
-                        UpdateConsole("Thou hast discovered a dungeon!");
-                        sound = true;
-                        break;
-                }
-
-                if(sound) PlaySound("Enter");
-                SetState(states.IDLE);
-                break;
         }
     }
 
@@ -304,7 +288,7 @@ public class World : Node2D
     }
 
     private void OnTweenDone() {
-        SetState(states.DAMAGE);
+        SetState(states.EVENTCHECK);
     }
 
     private void PlaySound(string name) {
@@ -330,7 +314,7 @@ public class World : Node2D
 
     private int SetRNG() {
         Random RNGesus = new Random();
-        int value = RNGesus.Next(0, 128);
+        int value = RNGesus.Next(5, 64);
         return value;
     }
 }

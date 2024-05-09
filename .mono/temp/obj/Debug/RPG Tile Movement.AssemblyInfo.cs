@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("RPG Tile Movement")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b8506280026d679ca8783d8edbfc79c05e96d6bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+4c3a1d3c5716825702cfa4174e49693faa1d4d20")]
 [assembly: System.Reflection.AssemblyProductAttribute("RPG Tile Movement")]
 [assembly: System.Reflection.AssemblyTitleAttribute("RPG Tile Movement")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
