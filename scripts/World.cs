@@ -104,6 +104,8 @@ public class World : Node2D
             }
 
             debugInfo += "\nNext Battle: " + randomBattle + "\n"; 
+            debugInfo += "Move Delay:     " + delayMovement + "\n";
+            debugInfo += "Swamp Flash:    " + swampFlashDelay + "\n";
 
             if(debugLabel.Text != debugInfo) debugLabel.Text = debugInfo;
         }
